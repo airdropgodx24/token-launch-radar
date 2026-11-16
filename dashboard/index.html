@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Launch Radar: pre-token protocols ranked by implied value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-in">
+    <div class="brand">
+      <span class="blip" aria-hidden="true"></span>
+      <div>
+        <h1>Token Launch Radar</h1>
+        <p class="tagline">Every protocol that records no token yet, ranked by what its launch could be worth, with a farm plan for each one.</p>
+      </div>
+    </div>
+    <dl class="stats" id="stats" aria-label="Board summary"></dl>
+  </div>
+</header>
+
+<section class="model-note" aria-label="How the board is scored">
+  <p><strong>The model.</strong> Implied value = TVL &times; category multiple &times; momentum &times; seasoning.
+  The multiple prices what a launch captures for that kind of protocol (DEXs 1.60, derivatives 1.50, bridges 0.70, default 0.90).
+  Momentum reads the 7-day TVL change, clamped to &minus;50%..+100% and mapped onto 0.75..1.50 through a square-root response, so a freak week saturates instead of ruling the board.
+  Seasoning rises from 0.75 to 1.25 over four years of running with no token. No name is ever scored by hand.</p>
+</section>
+
+<section class="controls" aria-label="Filters">
+  <label class="ctl grow">Search
+    <input id="q" type="search" placeholder="Protocol name or slug" autocomplete="off">
+  </label>
+  <label class="ctl">Category
+    <select id="cat"><option value="">All categories</option></select>
+  </label>
+  <label class="ctl">Chain
+    <select id="chain"><option value="">All chains</option></select>
+  </label>
+  <label class="ctl check">
+    <input id="watch" type="checkbox"> Watchlist only
+  </label>
+  <p class="count" id="count" role="status"></p>
+</section>
+
+<section id="detail" class="detail" hidden aria-label="Protocol detail"></section>
+
+<main>
+  <table class="board" id="board">
+    <thead>
+      <tr>
+        <th data-key="rank" class="num sortable">Rank</th>
+        <th data-key="name" class="sortable">Protocol</th>
+        <th data-key="category" class="sortable">Category</th>
+        <th>Chains</th>
+        <th data-key="tvl_usd" class="num sortable">TVL</th>
+        <th data-key="change_7d" class="num sortable">7d change</th>
+        <th data-key="implied_value_usd" class="num sortable">Implied value</th>
+        <th data-key="ratio" class="num sortable">Implied / TVL</th>
+        <th>Watchlist</th>
+      </tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <p class="empty" id="empty" hidden>No protocol matches those filters. Loosen one and the radar sweeps again.</p>
+</main>
+
+<footer>
+  <p>Built from a sealed DefiLlama snapshot. A protocol here records no token in that snapshot; that is a
+  statement about the record, not a promise that no token exists or that one will ever be issued. Implied
+  values are this radar's own model output, stated so a reader can argue with them, and farm plans are
+  starting points to check against each protocol's own pages, never instructions to deposit.</p>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
